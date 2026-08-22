@@ -7,8 +7,8 @@ import "math"
 // (nOut). The vertical gap at a fixed time is the queue; the horizontal gap at a
 // fixed count is the delay.
 type NCurvePoint struct {
-	T   float64
-	Nin float64
+	T    float64
+	Nin  float64
 	Nout float64
 }
 
@@ -26,7 +26,7 @@ func ArrivalDeparture(demand, capacity, duration float64) (curve []NCurvePoint, 
 	arrived := 0.0
 	served := 0.0
 	demandRate := demand / 3600.0 // veh/s
-	capRate := capacity / 3600.0
+	capRate := recallCapRate(capacity / 3600.0)
 	curve = make([]NCurvePoint, 0, steps+1)
 	for i := 0; i <= steps; i++ {
 		t := float64(i) * stepDur
