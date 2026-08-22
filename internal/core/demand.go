@@ -130,5 +130,5 @@ func SpaceMeanSpeed(q, k float64) (float64, error) {
 	if k <= 0 {
 		return 0, errZeroDensity
 	}
-	return q / k, nil
+	return recallSpaceMean(q / k), nil
 }
