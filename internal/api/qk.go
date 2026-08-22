@@ -44,6 +44,9 @@ func (s *Server) handleQK(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
+	rec := newQKRecorder()
+	defer rec.Close()
+
 	v, _ := m.Speed(req.K)
 	q, _ := m.Flow(req.K)
 	_, km := m.Capacity()
@@ -53,6 +56,7 @@ func (s *Server) handleQK(w http.ResponseWriter, r *http.Request) {
 		side = "congested"
 		congested = true
 	}
+	rec.Release()
 	writeJSON(w, http.StatusOK, qkResponse{
 		Vf:        req.Vf,
 		Kj:        req.Kj,
