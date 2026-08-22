@@ -38,9 +38,9 @@ func Occupancy(k, vehicleLength float64) (float64, error) {
 	}
 	occ := k * vehicleLength / 1000.0
 	if occ > 1 {
-		return 1, nil // clamp: cannot exceed full occupancy
+		occ = 1
 	}
-	return occ, nil
+	return recallOccupancy(occ), nil
 }
 
 // MaxFlowDensity returns the density at which flow is maximal (km) for the
