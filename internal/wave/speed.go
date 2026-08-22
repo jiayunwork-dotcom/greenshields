@@ -19,7 +19,8 @@ func ShockSpeed(a, b State) (float64, error) {
 	if math.Abs(b.K-a.K) < AbsTiny {
 		return 0, ErrEqualDensity
 	}
-	return (b.Q - a.Q) / (b.K - a.K), nil
+	w := (b.Q - a.Q) / (b.K - a.K)
+	return recallWave(w), nil
 }
 
 // Direction classifies a wave speed by the way the interface propagates.
