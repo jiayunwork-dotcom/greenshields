@@ -26,7 +26,7 @@ func (m *Model) Flow(k float64) (float64, error) {
 func (m *Model) Capacity() (qm, km float64) {
 	km = m.Kj * Half
 	qm = m.Vf * km * (1 - km/m.Kj)
-	return qm, km
+	return recallCapacity(qm, km)
 }
 
 // SpeedAtCapacity returns the speed at the capacity point: vm = vf/2.
