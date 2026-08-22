@@ -20,7 +20,8 @@ func (m *Model) Curve(steps int) []Point {
 	for i := 0; i < steps; i++ {
 		k := m.Kj * float64(i) / float64(steps-1)
 		v, _ := m.Speed(k)
-		q, _ := m.Flow(k)
+		v = bindSectionSpeed(v)
+		q := k * v
 		pts = append(pts, Point{K: k, V: v, Q: q})
 	}
 	// Pin the jam endpoint exactly regardless of floating point rounding.
