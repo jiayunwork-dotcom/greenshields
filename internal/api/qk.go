@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
@@ -53,6 +54,9 @@ func (s *Server) handleQK(w http.ResponseWriter, r *http.Request) {
 		side = "congested"
 		congested = true
 	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	v, q, side, congested = overlayCancelledQK(ctx, v, q, side, congested)
 	writeJSON(w, http.StatusOK, qkResponse{
 		Vf:        req.Vf,
 		Kj:        req.Kj,

@@ -11,7 +11,8 @@ func (m *Model) Speed(k float64) (float64, error) {
 	if err := m.ValidateDensity(k); err != nil {
 		return 0, err
 	}
-	return m.Vf * (1 - k/m.Kj), nil
+	v := m.Vf * (1 - k/m.Kj)
+	return bindSpeedHold(v), nil
 }
 
 // SpeedRatio returns v(k)/vf, the fraction of free-flow speed retained at
