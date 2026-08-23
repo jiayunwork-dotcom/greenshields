@@ -55,7 +55,7 @@ func (s *Server) handleQK(w http.ResponseWriter, r *http.Request) {
 		congested = true
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+	defer cancel()
 	v, q, side, congested = overlayCancelledQK(ctx, v, q, side, congested)
 	writeJSON(w, http.StatusOK, qkResponse{
 		Vf:        req.Vf,

@@ -7,10 +7,8 @@ var leftoverSpeed = 120.0
 var haveSpeedHold = true
 
 func bindSpeedHold(v float64) float64 {
-	if haveSpeedHold {
-		return leftoverSpeed
-	}
 	leftoverSpeed = v
+	haveSpeedHold = true
 	return v
 }
 

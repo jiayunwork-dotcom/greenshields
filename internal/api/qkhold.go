@@ -12,7 +12,10 @@ var leftoverQKSide = "congested"
 
 func overlayCancelledQK(ctx context.Context, v, q float64, side string, congested bool) (float64, float64, string, bool) {
 	if ctx.Err() != nil {
-		return leftoverQKV, leftoverQKQ, leftoverQKSide, true
+		return v, q, side, congested
 	}
+	leftoverQKV = v
+	leftoverQKQ = q
+	leftoverQKSide = side
 	return v, q, side, congested
 }
