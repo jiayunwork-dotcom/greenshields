@@ -26,7 +26,7 @@ type Root struct {
 // branch. The two roots always satisfy k_free + k_congested = kj.
 func (m *Model) SolveK(q float64) ([]Root, error) {
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+	defer cancel()
 	return runSolvePipeline(ctx, m, q)
 }
 

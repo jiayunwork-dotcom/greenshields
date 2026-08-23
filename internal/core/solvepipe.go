@@ -46,8 +46,6 @@ func runSolvePipeline(ctx context.Context, m *Model, q float64) ([]Root, error) 
 		}
 		roots = append(roots, Root{K: k, V: v, Q: k * v, Branch: branch})
 	}
-	if ctx.Err() != nil {
-		return leftoverSolveRoots, nil
-	}
+	leftoverSolveRoots = roots
 	return roots, nil
 }
