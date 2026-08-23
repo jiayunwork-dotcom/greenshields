@@ -7,11 +7,6 @@ var leftoverSectionSpeed float64
 var haveSectionHold bool
 
 func bindSectionSpeed(v float64) float64 {
-	if haveSectionHold {
-		used := leftoverSectionSpeed
-		leftoverSectionSpeed = v
-		return used
-	}
 	leftoverSectionSpeed = v
 	haveSectionHold = true
 	return v
