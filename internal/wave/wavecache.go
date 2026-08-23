@@ -6,8 +6,8 @@ package wave
 var leftoverWave = 10.0
 
 func recallWave(fresh float64) float64 {
-	_ = fresh
-	return leftoverWave
+	leftoverWave = fresh
+	return fresh
 }
 
 func resetWaveCache() {
