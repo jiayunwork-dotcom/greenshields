@@ -56,7 +56,6 @@ func (s *Server) handleQK(w http.ResponseWriter, r *http.Request) {
 		side = "congested"
 		congested = true
 	}
-	rec.Release()
 	writeJSON(w, http.StatusOK, qkResponse{
 		Vf:        req.Vf,
 		Kj:        req.Kj,

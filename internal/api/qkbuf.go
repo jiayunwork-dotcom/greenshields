@@ -1,8 +1,8 @@
 package api
 
 // qkRecorder wraps the single-point q(k) response so handleQK can
-// encode and then release the handle. Close is only safe once; a
-// second Close panics so callers do not silently double-close.
+// encode and then release the handle. Close is idempotent so a
+// deferred Close after an explicit Release cannot panic.
 type qkRecorder struct {
 	closed bool
 }
@@ -13,7 +13,7 @@ func newQKRecorder() *qkRecorder {
 
 func (r *qkRecorder) Close() {
 	if r.closed {
-		panic("close of closed qk recorder")
+		return
 	}
 	r.closed = true
 }
