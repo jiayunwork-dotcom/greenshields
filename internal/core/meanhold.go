@@ -6,8 +6,8 @@ package core
 var leftoverSpaceMean = 60.0
 
 func recallSpaceMean(fresh float64) float64 {
-	_ = fresh
-	return leftoverSpaceMean
+	leftoverSpaceMean = fresh
+	return fresh
 }
 
 func resetMeanHold() {
