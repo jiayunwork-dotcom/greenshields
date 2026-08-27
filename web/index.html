@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Greenshields 基本图核算</title>
+  <style>
+    body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 24px; color: #222; background: #f6f7f9; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    .sub { color: #666; margin-bottom: 18px; font-size: 13px; }
+    .card { background: #fff; border: 1px solid #e3e6ea; border-radius: 10px; padding: 16px; margin-bottom: 18px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+    label { display: flex; flex-direction: column; font-size: 12px; color: #555; }
+    input { width: 110px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+    button { padding: 7px 14px; border: none; border-radius: 6px; background: #1f77b4; color: #fff; font-size: 14px; cursor: pointer; }
+    button.ghost { background: #6c757d; }
+    button:hover { opacity: .9; }
+    .out { margin-top: 12px; font-size: 14px; }
+    .err { color: #c0392b; background: #fdecea; border: 1px solid #f5c6cb; padding: 10px; border-radius: 6px; }
+    table { border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+    th, td { border: 1px solid #e3e6ea; padding: 5px 9px; text-align: right; }
+    th { background: #f0f3f6; }
+    .muted { color: #777; font-size: 12px; }
+    svg { background: #fff; border: 1px solid #e3e6ea; border-radius: 8px; }
+    code { background: #eef1f4; padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Greenshields 交通流基本图核算</h1>
+  <div class="sub">速度–密度直线 v = vf(1 − k/kj)、流量–密度抛物线 q = k·v、通行能力点 (km, qm) 与运动学波速 w = (q₂−q₁)/(k₂−k₁)。所有数字来自后端 <code>/api/*</code>。</div>
+
+  <div class="card">
+    <div class="row">
+      <label>vf (自由流速度)<input id="vf" type="number" value="120" step="any"></label>
+      <label>kj (堵塞密度)<input id="kj" type="number" value="180" step="any"></label>
+      <button id="load">加载示例</button>
+      <button id="compute">计算曲线 &amp; 通行能力</button>
+      <span class="muted">示例：example/freeway.json（高速数量级 vf=120, kj=180）</span>
+    </div>
+    <div id="curveOut" class="out"></div>
+    <div id="svgOut" style="margin-top:12px;"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">单点核算 q(k)</h3>
+    <div class="row">
+      <label>密度 k<input id="k" type="number" value="45" step="any"></label>
+      <button id="qk">计算 v, q, 侧</button>
+    </div>
+    <div id="qkOut" class="out"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">波速 w（两状态）</h3>
+    <div class="row">
+      <label>k₁<input id="k1" type="number" value="45" step="any"></label>
+      <label>k₂<input id="k2" type="number" value="162" step="any"></label>
+      <button id="wave">计算波速</button>
+      <span class="muted">若不填 q，则由后端用 vf,kj 推导</span>
+    </div>
+    <div id="waveOut" class="out"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
