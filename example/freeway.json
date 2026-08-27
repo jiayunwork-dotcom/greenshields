@@ -1,0 +1,10 @@
+{
+  "name": "urban-freeway",
+  "vf": 120,
+  "kj": 180,
+  "unit": {
+    "speed": "km/h",
+    "density": "veh/km",
+    "flow": "veh/h"
+  }
+}
